@@ -1,0 +1,32 @@
+Georeferencing :
+
+For georeferencing we are taking the image from drone camera and checking for blocks.
+if a block is present in the image then we are using SIFT to match features with the tif image
+once the images are matched then we are creating the command to georeference the image.
+This command is run using os.system function in python .
+We already found the the centre of the blocks while detecting it.
+This pixel coordinate is converted into lat-long values.
+Then the data is compared with the other lat long-values
+if we dont have any other lat-long value near to it then we are creating a new object id and publishing the lat-long values
+
+Method 1:Using the complete tif iamge to georeference (it takes avg of 5 seconds , so we had to do something to decrease time)  
+
+Method 2:Using a part of the tif image(i.e; cropped tif image) which decreases the number of features so matching takes less time.(about 1.3 seconds which is better)
+
+
+Steps to run SD_1201_block_locator.py:
+	step 1: Our programs saves and accesses some files to perform the tasks so you need to provide locations from where the images can be saved as well as read.
+		Comments are already mentioned at the places where path has to be added.
+		
+	step 2: Open qgis by typing qgis in terminal
+	
+	step 3: Open the openstreetmap of the area but do not start the qgis_display.py yet.
+	 
+	step 4: Now run the launch file 
+	
+	step 5: now you can start the qgis_display.py 
+	
+	step 5: As the drone detect the blocks their lat-long points will be seen on the openstreet map 
+	
+we are sending the latlong values to qgis using a text file as the qgis was hanging when we tried to send latlong by subscribing to /geolocation
+we have also shown the data published in /geolocation topic as the block is detected
